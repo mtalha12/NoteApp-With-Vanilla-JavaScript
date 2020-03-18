@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #appBar {
+            background-color: rgb(48, 109, 144)
+        }
+
+        #h1 {
+            margin-left: 40px;
+            color: white;
+        }
+
+        #h3 {
+            margin-left: 40px;
+            color: white;
+        }
+
+        #homeBar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        #inputTitle {
+            width: 50%;
+            height: 40px;
+            margin-left: 25%;
+            font-size: medium;
+            padding-left: 5px;
+        }
+
+        #homeBtn {
+            text-decoration-line: underline;
+            color: rgb(48, 109, 144);
+        }
+
+        #areaText {
+            width: 50%;
+            margin-left: 25%;
+            margin-top: 30px;
+            font-size: large;
+            padding-left: 5px;
+        }
+
+        #addBtn {
+            margin-left: 25%;
+            margin-top: 5px;
+            background-color: rgb(48, 109, 144);
+            width: 115px;
+            height: 40px;
+            color: white;
+        }
+
+        #removeBtn {
+            background-color: rgb(48, 109, 144);
+            width: 115px;
+            height: 40px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="appBar">
+        <h1 id="h1">Notes App</h1>
+        <h3 id="h3">Take notes and naver forget</h3>
+    </div>
+    <div id="homeBar">
+        <h3 id="homeBtn"><a href="showNotes.html">Home</a></h3>
+        <h3 id="lastEdit">Last edit a few seconds ago</h3>
+    </div>
+
+    <div>
+        <input type="text" id="inputTitle" placeholder="Note title" />
+    </div>
+
+    <div>
+        <textarea id="areaText" rows="20" cols="50" placeholder="Enter note text"></textarea>
+    </div>
+    <button id="addBtn" onclick="addNote()">Add Note</button>
+    <button id="removeBtn" onclick="removeNote()">Remove Note</button>
+
+</body>
+
+<script>
+
+    let noteArray = []
+    noteArray = JSON.parse(localStorage.getItem('noteArray'));
+    const addNote = () => {
+        let noteArrayCopy = noteArray
+        if (noteArrayCopy === null) {
+            noteArrayCopy = []
+        }
+        const note = {
+            title: document.getElementById("inputTitle").value,
+            description: document.getElementById("areaText").value,
+            createdDate: new Date(),
+            updatedDate: new Date(),
+        }
+        noteArrayCopy.push(note);
+        localStorage.setItem('noteArray', JSON.stringify(noteArrayCopy));
+        document.getElementById("inputTitle").value = ""
+        document.getElementById("areaText").value = ""
+    }
+
+    const removeNote = () => {
+        document.getElementById("inputTitle").value = ""
+        document.getElementById("areaText").value = ""
+    }
+
+</script>
+
+</html>
